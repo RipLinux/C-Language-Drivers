@@ -1,5 +1,5 @@
 /***************************************/
-/******   Author:   Anas         *******/
+/******   Author:   Anas  Sayed  *******/
 /******   Time:     07/28/2026   *******/
 /******   File:   Interface File *******/
 /***************************************/
@@ -26,7 +26,7 @@
 #define LOW 0
 #define HIGH 1
 
-void DIO_voidInitialization(void);
+void DIO_voidInitialization();
 void DIO_voidSetPinDirection(u8 PortID,u8 PinID,u8 Direction);
 void DIO_voidSetPinValue(u8 PortID,u8 PinID,u8 Value);
 u8 DIO_u8GetPinValue(u8 PortID,u8 PinID);
