@@ -1,5 +1,5 @@
 /***************************************/
-/******   Author:   Anas         *******/
+/******   Author:   Anas  Sayed  *******/
 /******   Time:     07/28/2026   *******/
 /******   File:     Math    File *******/
 /***************************************/
@@ -24,6 +24,11 @@ REG = ((CASE==0)?((REG&0xF0)|((VALUE)&0x0F)):((REG&0x0F)|(((VALUE)&0x0F)<<4)))
 #define CLR_PORT(REG)               REG = 0x00
 #define ASG_PORT(REG,VALUE)         REG = (VALUE)
 
+/* Pastes 8 bits into a 0bXXXXXXXX literal */
 #define CONC_BIT(b7,b6,b5,b4,b3,b2,b1,b0) 0b##b7##b6##b5##b4##b3##b2##b1##b0
+
+/* Wrapper that forces macro-expansion of the arguments (e.g. OUTPUT/INPUT)
+   BEFORE they are pasted by CONC_BIT. Operands of ## are NOT expanded on their own. */
+#define CONC_BIT_EXPAND(b7,b6,b5,b4,b3,b2,b1,b0) CONC_BIT(b7,b6,b5,b4,b3,b2,b1,b0)
 
 #endif /* BIT_MATH_H */
