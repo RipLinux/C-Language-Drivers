@@ -68,3 +68,52 @@ void LCD_voidSendData(u8 u8DATA)
 
 }
 
+void LCD_voidGoToXY(u8 u8XPos, u8 u8YPos)
+{
+    u8 Local_u8Address;
+
+    switch(u8YPos)
+    {
+        case 0: Local_u8Address = 0x00 + u8XPos; break;
+        case 1: Local_u8Address = 0x40 + u8XPos; break;
+        case 2: Local_u8Address = 0x14 + u8XPos; break;
+        case 3: Local_u8Address = 0x54 + u8XPos; break;
+        default: Local_u8Address = 0x00 + u8XPos; break;
+    }
+
+    LCD_voidSendCommand(LCD_SETCURSOR | Local_u8Address);
+}
+
+void LCD_voidSendString(const u8 *pu8String)
+{
+    u8 Local_u8Iterator = 0;
+
+    while(pu8String[Local_u8Iterator] != '\0')
+    {
+        LCD_voidSendData(pu8String[Local_u8Iterator]);
+        Local_u8Iterator++;
+    }
+}
+
+void LCD_voidSendLongNumber(s32 s32Number)
+{
+    if(s32Number < 0)
+    {
+        LCD_voidSendData('-');
+        s32Number = -s32Number;
+    }
+
+    if(s32Number > 9)
+    {
+        LCD_voidSendLongNumber(s32Number / 10);
+    }
+
+    LCD_voidSendData((s32Number % 10) + '0');
+}
+
+void LCD_voidClearScreen(void)
+{
+    LCD_voidSendCommand(LCD_CLEAR);
+    _delay_ms(2);
+}
+
